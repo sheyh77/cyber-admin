@@ -31,3 +31,38 @@ button {
     color: white;
     margin: 10px;
 }
+
+/* charts style ======= */
+
+.users {
+    width: 100%;
+    display: flex;
+    gap: 32px;
+    padding: 24px 0;
+    margin-left: 45px;
+}
+
+.users-num {
+    width: 250px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: hotpink;
+    border-radius: 8px;
+}
+
+.users-balance {
+    background-color: bisque;
+    padding: 0;
+}
+
+/* dashboard style ======= */
+
+.dashboard {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
