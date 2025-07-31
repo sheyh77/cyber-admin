@@ -27,6 +27,10 @@ button {
     height: 100vh;
 }
 
+.add-products {
+    margin-bottom: 24px;
+}
+
 .demo-logo-vertical {
     color: white;
     margin: 10px;
