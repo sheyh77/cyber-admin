@@ -6,10 +6,7 @@
 
 html, body, #root {
     width: 100%;
-}
-
-#root {
-    position: relative;
+    height: 100%;
 }
 
 a {
@@ -24,7 +21,7 @@ button {
 }
 
 .ant-layout {
-    height: 100vh;
+    min-height: 100%;
 }
 
 .add-products {

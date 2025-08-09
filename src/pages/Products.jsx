@@ -1,7 +1,7 @@
-import { Button, Drawer, Flex, Form, Image, Input, Space, Table } from 'antd'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { API } from '../api'
+import React, { useEffect, useState } from 'react';
+import { Button, Flex, Image, Popconfirm, Space, Table } from 'antd';
+import { API } from '../api';
+import ProductDrawer from '../components/ProductDrawer';
 
 function Products() {
 
@@ -15,14 +15,10 @@ function Products() {
     getProducts()
   }, [])
 
-  const [open, setOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const showDrawer = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
+    setDrawerOpen(true);
   };
 
   const columns = [
@@ -52,18 +48,28 @@ function Products() {
     {
       title: "Action",
       key: "action",
-      render: () => (
+      render: (item) => (
         <Space>
           <Button>Edit</Button>
-          <Button danger>Delete</Button>
+          <Popconfirm
+            title="Delete the task"
+            description="Are you sure to delete this task?"
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button danger onClick={() => handleDelet(item)}>Delete</Button>
+          </Popconfirm>
         </Space>
       )
     }
   ]
 
-  const onFinish = (value) => {
-    console.log(value);
+  const handleDelet = (el) => {
+    API.delete(`/products/${el.id}`).then(() => {
+      getProducts();
+    }).catch(err => console.error("Error deleting product:", err));
   }
+  getProducts();
 
   return (
     <>
@@ -71,18 +77,7 @@ function Products() {
         <Button className='add-products' type='primary' size='large' onClick={showDrawer}>+ Add products</Button>
       </Flex>
       <Table dataSource={products} columns={columns} />
-      <Drawer title="Add product" onClose={onClose} open={open}>
-        <Form name='product form' onFinish={onFinish}>
-          <Form.Item
-            label="Name"
-            name="name"
-            rules={[{ required: true, message: "Iltimos mahsulot nomini kiriting!" }]}
-          >
-            <Input placeholder='Mahsulot nomi'></Input>
-          </Form.Item>
-        </Form>
-      </Drawer>
-
+      <ProductDrawer setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen} />
     </>
   )
 }
